@@ -25,9 +25,14 @@ jobs:
           role-to-assume: arn:aws:iam::411511612237:role/github-workflows-static-deploy
           aws-region: ${{ env.AWS_REGION }}
 
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+        
       - name: Build with npm
-        id: package
-        run: npm run build
+        run: |
+          npm ci
+          npm run build
 
-      - name: Upload Artifact to s3
+      - name: Upload Site to s3
         run: aws s3 sync ./build s3://${{ env.S3BUCKET }} --delete
