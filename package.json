@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "infra-plan": "terraform -chdir=infra plan",
+    "infra-apply": "terraform -chdir=infra apply"
   },
   "dependencies": {
     "@types/node": "20.2.5",

@@ -1,0 +1,33 @@
+name: Build and Deploy
+
+on:
+  workflow_dispatch: {}
+
+env:
+  AWS_REGION: us-east-1
+  S3BUCKET: dots-site
+
+
+
+jobs:
+  build:
+    name: Build Static Site
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v2
+        name: Checkout Repository
+
+      - uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::411511612237:role/github-workflows-static-deploy
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Build with npm
+        id: package
+        run: npm run build
+
+      - name: Upload Artifact to s3
+        run: aws s3 sync ./build s3://${{ env.S3BUCKET }} --delete
