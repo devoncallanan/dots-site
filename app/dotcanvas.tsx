@@ -8,11 +8,13 @@ interface DotCanvasProps {
 }
 
 export function DotCanvas(props: DotCanvasProps) {
-  const [dotsImage, setDotsImage] = useState<string | null>();
+  const [dotsImage, setDotsImage] = useState<string | null>(null);
+  const [converted, setConverted] = useState<boolean>(false);
 
   useEffect(() => {
     setDotsImage(null);
-  }, [props.templateImage]);
+    setConverted(false);
+  }, [props.templateImage, props.brushUrl]);
 
   const handleConvertImage = async () => {
     const response = await fetch(
@@ -30,10 +32,11 @@ export function DotCanvas(props: DotCanvasProps) {
     setDotsImage(
       "data:image/png;base64," + lambdaResponse.img.substring(2, lambdaResponse.img.length - 1)
     );
+    setConverted(true);
   };
 
   return (
-    <div className="flex grid justify-center">
+    <div className="flex grid relative justify-center">
       <div className="row-auto">
         {dotsImage ? (
           <img src={dotsImage} key={dotsImage} width={500} height={500} />
@@ -42,12 +45,16 @@ export function DotCanvas(props: DotCanvasProps) {
         ) : (
           <Image alt={"devon looking cool"} src="/blank.jpg" width={500} height={500} />
         )}
-
       </div>
-      <div className="flex grid row-auto grow m-4 justify-items-center">
-        <button className="" onClick={handleConvertImage}>
-          CONVERT
-        </button>
+      <div className="absolute z-10 row-auto items-center self-center justify-self-center m-4">
+        {props.configComplete && !converted && (
+          <button className={
+            "rounded-full border-solid border-4 \
+         bg-white hover:border-grey-700 text-black \
+         font-bold py-2 px-4"} onClick={handleConvertImage}>
+            CONVERT
+          </button>
+        )}
       </div>
     </div>
   );
