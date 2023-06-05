@@ -138,7 +138,7 @@ export function ImagePicker(props: ImagePickerProps) {
   };
   return (
     <>
-      <div>Choose an image</div>
+      <div className="text-xs italic">Choose an image (more contrast works better, ~1mb limit)</div>
       <input
         type="file"
         id="image"
