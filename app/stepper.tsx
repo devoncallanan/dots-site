@@ -26,7 +26,7 @@ export function Stepper(props: StepperProps) {
   };
 
   return (
-    <div className="basis-1/3 space-y-4">
+    <div className="m-10 space-y-4">
       {props.steps.map((stepDef, index) => (
         <Step
           key={index}
@@ -129,6 +129,7 @@ export function BrushSelector(props: BrushSelectorProps) {
     const src: string = e.target.src;
     const brushOptionString = src.substring(src.indexOf("/brushes/"));
     setCurrentBrush(brushOptionString);
+    props.handleSelectBrush(brushOptionString);
   };
   return (
     <>
