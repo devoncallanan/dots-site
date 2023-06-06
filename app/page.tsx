@@ -33,7 +33,7 @@ export default function DotGenerator() {
   ];
 
   return (
-    <main className="flex min-h-screen flex-row items-center p-24">
+    <main className="grid lg:flex min-h-screen row-auto items-center p-24">
       <div className="basis-1/3">
         <Stepper
           steps={steps}

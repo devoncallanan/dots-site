@@ -30,7 +30,7 @@ export function Stepper(props: StepperProps) {
 
   return (
     <div className="grid justify-items-center">
-      <div className="row-auto m-10 space-y-4">
+      <div className="row-auto m-12 space-y-4">
         {props.steps.map((stepDef, index) => (
           <Step
             key={index}
@@ -71,15 +71,15 @@ function Step(props: StepProps) {
   return (
     <div
       className={
-        "flex rounded-md border-solid border-2 border-indigo-600 items-stretch p-4 " +
+        "flex rounded-md border-solid border-4 border-indigo-600 items-stretch " +
         (props.active ? "scale-125 " : "opacity-50 ")
       }
     >
-      <div className="grow">{props.stepDef.renderContents(props.active, setCanComplete)}</div>
-      <div>
+      <div className="grow m-4">{props.stepDef.renderContents(props.active, setCanComplete)}</div>
+      <div className="flex">
         <button
           className={
-            "rounded-full border-solid border-4 \
+            "rounded self-stretch\
          bg-green-500 hover:bg-green-700 text-white \
          font-bold py-2 px-4 disabled:opacity-75"
           }
@@ -93,7 +93,6 @@ function Step(props: StepProps) {
     </div>
   );
 }
-
 
 // Definte components that can be used as step contents
 
@@ -138,13 +137,16 @@ export function ImagePicker(props: ImagePickerProps) {
   };
   return (
     <>
-      <div className="text-xs italic">Choose an image (more contrast works better, ~1mb limit)</div>
+      <div className="text-xs italic whitespace-normal">
+        Choose an image (more contrast works better, ~1mb limit)
+      </div>
       <input
         type="file"
         id="image"
         name="image"
         accept="image/png, image/jpeg"
-        className="file:rounded-full"
+        className="border text-xs rounded border-solid \ 
+        border-neutral-300 file:border-solid file:bg-neutral-100"
         disabled={!props.active}
         value={inputValue}
         onChange={(e) => {
@@ -187,7 +189,7 @@ export function BrushSelector(props: BrushSelectorProps) {
   };
   return (
     <>
-      <div>Choose a brush</div>
+      <div className="text-xs italic">Choose a brush</div>
       <div className="flex flex-row space-x-1">
         {brushOptions.map((option, index) => (
           <div key={index}>
