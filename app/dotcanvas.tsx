@@ -4,7 +4,6 @@ import Image from "next/image";
 interface DotCanvasProps {
   templateImage: string | null;
   brushUrl: string | null;
-  configComplete: boolean;
 }
 
 export function DotCanvas(props: DotCanvasProps) {
@@ -38,10 +37,9 @@ export function DotCanvas(props: DotCanvasProps) {
   };
 
   return (
-    <div className="flex grid relative justify-center">
-      <div className="sm:absolute z-10 row-auto items-center self-center justify-self-center m-4">
-        {props.configComplete &&
-          !converted &&
+    <div className="flex grid relative justify-center h-full p-4">
+      <div className="sm:absolute z-10 row-auto self-center justify-self-center m-4">
+        {!converted &&
           (loading ? (
             <Image alt="loading" src="/Loading_icon.gif" width={50} height={50} />
           ) : (
@@ -51,6 +49,7 @@ export function DotCanvas(props: DotCanvasProps) {
          bg-white hover:border-grey-700 text-black \
          font-bold py-2 px-4"
               }
+              disabled={!props.brushUrl || !props.templateImage}
               onClick={() => {
                 handleConvertImage();
                 setLoading(true);
@@ -60,20 +59,23 @@ export function DotCanvas(props: DotCanvasProps) {
             </button>
           ))}
       </div>
-      <div className="row-auto">
-        {dotsImage ? (
-          <img src={dotsImage} key={dotsImage} width={500} height={500} />
-        ) : props.templateImage ? (
-          <img
-            className={loading ? "opacity-50" : ""}
-            src={props.templateImage}
-            key={props.templateImage}
-            width={500}
-            height={500}
-          />
-        ) : (
-          <Image alt={"devon looking cool"} src="/blank.jpg" width={500} height={500} />
-        )}
+      <div className="row-auto h-full">
+        <div className="max-w-lg h-full text-center">
+          {dotsImage ? (
+            <img 
+              className="max-h-full "
+              src={dotsImage} key={dotsImage}/>
+          ) : props.templateImage ? (
+            <img
+              className={"max-h-full block m-auto" +
+               (loading ? "opacity-50" : "")}
+              src={props.templateImage}
+              key={props.templateImage}
+            />
+          ) : (
+            null
+          )}
+        </div>
       </div>
     </div>
   );

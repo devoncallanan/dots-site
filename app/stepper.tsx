@@ -1,3 +1,4 @@
+// Old UI for configuring the dot image. Clunky and over-opinionated as a UI
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
