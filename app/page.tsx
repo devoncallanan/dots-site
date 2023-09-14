@@ -13,9 +13,9 @@ export default function DotGenerator() {
       <div className="absolute left-0 right-0 text-center m-2 text-3xl">
           Dot Art!!
       </div>
-      <div className="p-10 lg:p-48 h-screen flex">
+      <div className="sm:p-10 lg:p-48 h-screen flex">
         <div className=' grow rounded-md border-solid border-4 \
-        grid lg:flex row-auto items-center h-full'>
+        grid lg:flex row-auto items-center h-max lg:h-full '>
           <div className="basis-1/3 h-full bg-slate-50">
             <ConfigForm onSetBrush={setBrushUrl} onSetTemplate={setTemplateImage}/>
           </div>
